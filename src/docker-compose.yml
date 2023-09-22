@@ -1,4 +1,6 @@
 services:
+  wordpress:
+    build: requirements/wordpress
   nginx:
     build: requirements/nginx
     ports:

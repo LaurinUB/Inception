@@ -1,5 +1,6 @@
 #!/bin/bash
 sed -i "s/listen = 127.0.0.1:9000/listen = 9000/g" /etc/php81/php-fpm.d/www.conf
+
 while ! wp config create --allow-root --dbname=${MARIADB_NAME} --dbuser=${MARIADB_USER} --dbpass=${MARIADB_PASS} --dbhost=${MARIADB_NAME} --url=${WP_URL} --force
 do
   sleep 1

@@ -1,0 +1,57 @@
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - dockin
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - wp:/var/html/wordpress
+    networks:
+      - dockin
+  nginx:
+    container_name: nginx
+    depends_on:
+      - wordpress
+    build:
+      context: ./requirements/nginx/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 443:443
+    volumes:
+      - wp:/var/html/wordpress
+    networks:
+      - dockin
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/luntiet/data/db
+  wp:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/luntiet/data/wp
+
+networks: 
+  dockin:
+    driver: bridge

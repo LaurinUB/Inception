@@ -7,8 +7,5 @@ COPY tool/run.sh run.sh
 RUN chmod +x run.sh
 RUN openrc
 RUN touch /run/openrc/softlevel
-RUN /etc/init.d/mariadb setup
-
-EXPOSE 3306
 
 ENTRYPOINT ["/bin/sh", "./run.sh"]

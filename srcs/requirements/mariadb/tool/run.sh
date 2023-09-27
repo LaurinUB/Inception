@@ -1,5 +1,5 @@
 #!/bin/sh
-DB_DIR=/tmp/create_db.sql
+DB_DIR=/tmp/tmp.sql
 
 echo "CREATE DATABASE $MARIADB_NAME;" > $DB_DIR
 echo "CREATE USER '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PASS';" >> $DB_DIR
